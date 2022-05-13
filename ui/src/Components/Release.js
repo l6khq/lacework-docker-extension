@@ -15,7 +15,7 @@ function Release() {
         setLatestRelease(json[0].name||"unavailable");
       }
     })
-  })
+  },[])
 
   function showCurrentRelease() {
     return (<span>
