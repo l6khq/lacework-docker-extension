@@ -123,7 +123,7 @@ function App() {
           <div>
             <img className="logo_front" src={matchMedia("(prefers-color-scheme: dark")?.matches?logoLight:logoDark} alt="" />
           </div>
-          <div className={"hide-"+view}>Lacework Scanner Version: {version}</div>
+          <div className={"hide-"+view}>Lacework Scanner Version: {version} / ({process.env.REACT_APP_RELEASE})</div>
           <div><Link href="https://github.com/lacework-dev/lacework-docker-extension"><Chip icon={<GitHubIcon />} label="mennov/lacework-docker-extension" variant="outlined" /></Link></div>
           <h2 className={"hide-"+view}>Container image scanning powered by Lacework's lw-scanner</h2>
           <div className={"hide-"+view}>Either choose on the images already pulled by docker, or specify a new one for docker to pull.</div>

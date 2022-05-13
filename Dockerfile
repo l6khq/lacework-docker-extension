@@ -25,8 +25,10 @@ COPY ui/package-lock.json /ui/package-lock.json
 #     npm set cache /usr/src/app/.npm && \
 RUN   npm ci
 # install
+ARG RELEASE
 ARG HONEYCOMB_TEAM
 ARG HONEYCOMB_DATASET
+ENV REACT_APP_RELEASE=${RELEASE}
 ENV REACT_APP_HONEYCOMB_TEAM=${HONEYCOMB_TEAM}
 ENV REACT_APP_HONEYCOMB_DATASET=${HONEYCOMB_DATASET}
 COPY ui /ui

@@ -1,0 +1,51 @@
+name: "Build and Push"
+
+on:
+  push:
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    # if: github.event_name == 'release' && github.event.action == 'created'
+
+    env:
+      IMAGE_NAME: mennov/lacework-docker-extension
+
+    steps:
+    - id: version
+      uses: riege/action-version@v1
+
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Login to Container Registry
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Extract metadata (tags, labels) for Docker
+      id: meta
+      uses: docker/metadata-action@v3
+      with:
+        images: ${{ env.IMAGE_NAME }}
+        flavor: |
+          latest=true
+        tags: |
+          type=ref,event=branch
+          type=ref,event=pr
+          type=semver,pattern={{version}}
+          type=semver,pattern={{major}}.{{minor}}
+          type=sha
+
+    - name: Build and Push
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        push: true
+        build-args: |
+          RELEASE=${{ steps.version.outputs.version }}
+          HONEYCOMB_TEAM=${{ secrets.HONEYCOMB_TEAM }}
+          HONEYCOMB_DATASET=${{ secrets.HONEYCOMB_DATASET }}
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
