@@ -16,6 +16,7 @@ import { Chip } from "@mui/material";
 import GitHubIcon from '@mui/icons-material/GitHub';
 import ConfigToken from "./Components/ConfigToken";
 import Utils from './Components/Utils';
+import Release from "./Components/Release";
 const utils = new Utils();
 
 const client = createDockerDesktopClient();
@@ -107,7 +108,9 @@ function App() {
               <img className="logo_front" src={matchMedia("(prefers-color-scheme: dark")?.matches?logoLight:logoDark} alt="" />
             </div>
             <div className={"hide-"+view}>Lacework Scanner Version: {version}</div>
-            <div className="chip-github"><Link href="https://github.com/l6khq/lacework-docker-extension"><Chip icon={<GitHubIcon />} label="l6khq/lacework-docker-extension" variant="outlined" /></Link></div>            <ConfigToken onSuccess={getConfig} />
+            <div className="chip-github"><Link href="https://github.com/l6khq/lacework-docker-extension"><Chip icon={<GitHubIcon />} label="l6khq/lacework-docker-extension" variant="outlined" /></Link></div>
+            <ConfigToken onSuccess={getConfig} />
+            <Release />
           </Box>
         </Box>
       </DockerMuiThemeProvider>
@@ -122,7 +125,7 @@ function App() {
           <div>
             <img className="logo_front" src={matchMedia("(prefers-color-scheme: dark")?.matches?logoLight:logoDark} alt="" />
           </div>
-          <div className={"hide-"+view}>Lacework Scanner Version: {version} / Extension: {process.env.REACT_APP_RELEASE||"unknown"}</div>
+          <div className={"hide-"+view}>Lacework Scanner Version: {version}</div>
           <div className="chip-github"><Link href="https://github.com/l6khq/lacework-docker-extension"><Chip icon={<GitHubIcon />} label="l6khq/lacework-docker-extension" variant="outlined" /></Link></div>
           <h2 className={"hide-"+view}>Container image scanning powered by Lacework's lw-scanner</h2>
           <div className={"hide-"+view}>Either choose on the images already pulled by docker, or specify a new one for docker to pull.</div>
@@ -130,6 +133,7 @@ function App() {
           <Button onClick={handleReset}>reset lw-scanner configuration</Button>
         </Box>
         {renderScanResults()}
+        <Release />
       </Box>
       <Backdrop
           sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}

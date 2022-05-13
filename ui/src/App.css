@@ -154,3 +154,9 @@
 .chip-github {
   margin-bottom: 1em;
 }
+
+.release {
+  text-align: center;
+  font-size: 0.8em;
+  color: #999999;
+}
