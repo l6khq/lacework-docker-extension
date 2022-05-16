@@ -12,14 +12,14 @@ function Release() {
     .then(result => result.json())
     .then(json => {
       if(json[0]) {
-        setLatestRelease(json[0].name||"unavailable");
+        setLatestRelease(json[0].tag_name||"unavailable");
       }
     })
   },[])
 
   function showCurrentRelease() {
     return (<span>
-      extension version: {currentRelease}
+      extension version: {process.env.REACT_APP_RELEASE}
     </span>);
   }
 
