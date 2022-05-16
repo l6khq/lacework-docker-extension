@@ -19,7 +19,7 @@ function Release() {
 
   function showCurrentRelease() {
     return (<span>
-      extension version: {semver.valid(currentRelease)?"v"+semver.valid(currentRelease):currentRelease}
+      extension version: {currentRelease}
     </span>);
   }
 
