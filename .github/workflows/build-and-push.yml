@@ -29,8 +29,6 @@ jobs:
       uses: docker/metadata-action@v3
       with:
         images: ${{ env.IMAGE_NAME }}
-        flavor: |
-          latest=true
         tags: |
           type=ref,event=branch
           type=ref,event=pr

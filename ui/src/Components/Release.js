@@ -3,7 +3,7 @@ import semver from 'semver';
 
 function Release() {
   let [latestRelease,setLatestRelease] = useState("unknown")
-  let [currentRelease,setCurrentRelease] = useState("unknown"); //useState(semver.coerce(process.env.REACT_APP_RELEASE));
+  let [currentRelease,setCurrentRelease] = useState(process.env.REACT_APP_RELEASE||"unknown");
 
   useEffect(() => {
     let version = semver.coerce(process.env.REACT_APP_RELEASE);

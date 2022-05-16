@@ -1,16 +1,3 @@
-# FROM golang:1.17-alpine AS builder
-# ENV CGO_ENABLED=0
-# RUN apk add --update make
-# WORKDIR /backend
-# COPY go.* .
-# RUN --mount=type=cache,target=/go/pkg/mod \
-#     --mount=type=cache,target=/root/.cache/go-build \
-#     go mod download
-# COPY . .
-# RUN --mount=type=cache,target=/go/pkg/mod \
-#     --mount=type=cache,target=/root/.cache/go-build \
-#     make bin
-
 FROM busybox AS lwscanner
 RUN wget -O /lw-scanner-darwin https://github.com/lacework/lacework-vulnerability-scanner/releases/latest/download/lw-scanner-darwin-amd64
 RUN wget -O /lw-scanner-linux https://github.com/lacework/lacework-vulnerability-scanner/releases/latest/download/lw-scanner-linux-amd64
