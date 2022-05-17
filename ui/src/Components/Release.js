@@ -1,3 +1,4 @@
+import { Link } from "@mui/material";
 import { useEffect, useState } from "react";
 import semver from 'semver';
 
@@ -34,6 +35,7 @@ function Release() {
   }
   return (
     <div className="release">
+      This extension is a public beta. <Link to="https://github.com/l6khq/lacework-docker-extension/issues">GitHub Issue Tracker</Link><br />
       {showCurrentRelease()}<br />
       {showUpgradeRelease()}
     </div>
