@@ -4,11 +4,12 @@ on:
   push:
     tags:
       - '*'
+    branches:
+      - 'dev'
 
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
-    # if: github.event_name == 'release' && github.event.action == 'created'
 
     env:
       IMAGE_NAME: lacework/lacework-docker-extension
@@ -28,7 +29,7 @@ jobs:
 
     - name: Extract metadata (tags, labels) for Docker
       id: meta
-      uses: docker/metadata-action@v3
+      uses: docker/metadata-action@v4
       with:
         images: ${{ env.IMAGE_NAME }}
         tags: |
