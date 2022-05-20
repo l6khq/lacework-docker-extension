@@ -174,6 +174,14 @@ function ScanResults(props) {
     )
   }
 
+  function vulnCount(packages,severity) {
+    let count = 0;
+    packages.forEach(pkg => {
+      count += pkg.vulnerabilities.filter(v=>v.severity===severity).length;
+    })
+    return count;
+  }
+
   return (
     <Box className="scan_results">
       <Box className="filters">
@@ -248,7 +256,18 @@ function ScanResults(props) {
       <Box className="packages" role="tabpanel" hidden={1!==tab}>
         {getNamespacesFromPackages(packages).map(ns => (
             <Accordion>
-            <AccordionSummary>package namespace:&nbsp;<strong>{ns}</strong></AccordionSummary>
+            <AccordionSummary>
+            <div>
+              <ButtonGroup sx={{marginRight:'1em'}}>
+                <Button variant="contained" className="btn-cve-layer btn-cve-Critical">{vulnCount(packages.filter(p=>p.namespace===ns),"Critical")}</Button>
+                <Button variant="contained" className="btn-cve-layer btn-cve-High">{vulnCount(packages.filter(p=>p.namespace===ns),"High")}</Button>
+                <Button variant="contained" className="btn-cve-layer btn-cve-Medium">{vulnCount(packages.filter(p=>p.namespace===ns),"Medium")}</Button>
+                <Button variant="contained" className="btn-cve-layer btn-cve-Low">{vulnCount(packages.filter(p=>p.namespace===ns),"Low")}</Button>
+                <Button variant="contained" className="btn-cve-layer btn-cve-Info">{vulnCount(packages.filter(p=>p.namespace===ns),"Info")}</Button>
+              </ButtonGroup>
+              </div>
+              <div>package namespace:&nbsp;<strong>{ns}</strong></div>
+            </AccordionSummary>
             <AccordionDetails>
               <table cellSpacing={0} cellPadding={2} style={{width:'100%'}}>
                 <tr>
@@ -276,10 +295,23 @@ function ScanResults(props) {
       <Box className="layers" role="tabpanel" hidden={2!==tab}>
         {results?.cve?.image?.image_layers.map(layer => (
           <Accordion>
-            <AccordionSummary>{layer.created_by}</AccordionSummary>
+            <AccordionSummary>
+              <div>
+              <ButtonGroup sx={{marginRight:'1em'}}>
+                <Button variant="contained" className="btn-cve-layer btn-cve-Critical">{vulnCount(layer.packages,"Critical")}</Button>
+                <Button variant="contained" className="btn-cve-layer btn-cve-High">{vulnCount(layer.packages,"High")}</Button>
+                <Button variant="contained" className="btn-cve-layer btn-cve-Medium">{vulnCount(layer.packages,"Medium")}</Button>
+                <Button variant="contained" className="btn-cve-layer btn-cve-Low">{vulnCount(layer.packages,"Low")}</Button>
+                <Button variant="contained" className="btn-cve-layer btn-cve-Info">{vulnCount(layer.packages,"Info")}</Button>
+              </ButtonGroup>
+              </div>
+              <div>{layer.created_by}</div>
+            </AccordionSummary>
             <AccordionDetails>
               {layer.packages.length===0?"No vulnerabilities found!":null}
-              {layer.packages.map(pkg => (
+              {layer.packages
+              .filter(pkg => pkg.vulnerabilities.filter(useFilter).length>0)
+              .map(pkg => (
                 <div>
                   <strong>{pkg.namespace}: {pkg.name} ({pkg.version})</strong><br />
                   {pkg.vulnerabilities.filter(useFilter).map(v => (
