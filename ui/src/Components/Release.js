@@ -3,12 +3,12 @@ import { useEffect, useState } from "react";
 import semver from 'semver';
 
 function Release() {
-  let [latestRelease,setLatestRelease] = useState("unknown")
-  let [currentRelease,setCurrentRelease] = useState(process.env.REACT_APP_RELEASE||"unknown");
+  let [latestRelease,setLatestRelease] = useState("0.0.0")
+  let [currentRelease,setCurrentRelease] = useState(process.env.REACT_APP_RELEASE||"0.0.0");
 
   useEffect(() => {
     let version = semver.coerce(process.env.REACT_APP_RELEASE);
-    if(version.version) setCurrentRelease(version.version);
+    if(version?.version) setCurrentRelease(version?.version||"unknown");
     fetch('https://api.github.com/repos/l6khq/lacework-docker-extension/releases')
     .then(result => result.json())
     .then(json => {
@@ -20,7 +20,7 @@ function Release() {
 
   function showCurrentRelease() {
     return (<span>
-      extension version: {process.env.REACT_APP_RELEASE}
+      extension version: {process.env.REACT_APP_RELEASE||"unknown"}
     </span>);
   }
 
