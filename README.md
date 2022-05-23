@@ -8,7 +8,7 @@ For any recommendations, suggestions, feature requests and issue, head over the 
 
 ## Enabling Docker Extensions
 
-To install extensions not yet listed in the Docker Desktop extension market place, follow the instructions here (https://docs.docker.com/desktop/extensions-sdk/)[https://docs.docker.com/desktop/extensions-sdk/#prerequisites]
+To install extensions not yet listed in the Docker Desktop extension market place, follow the instructions here [https://docs.docker.com/desktop/extensions-sdk/](https://docs.docker.com/desktop/extensions-sdk/#prerequisites)
 
 ## Installing the Lacework Docker extension
 
