@@ -63,9 +63,6 @@
 .filters {
   margin-bottom: 1em;
 }
-.cve {
-  overflow: scroll;
-}
 
 .cve-table {
   width: 100%;
