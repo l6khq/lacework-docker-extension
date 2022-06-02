@@ -6,6 +6,8 @@ To use this extension, an active Lacework subscription is required with access t
 
 For any recommendations, suggestions, feature requests and issue, head over the the project's [GitHub Issues tracker](https://github.com/l6khq/lacework-docker-extension/issues).
 
+![Lacework Scanner](lacework-docker-extension.png "Lacework Scanner")
+
 ## Enabling Docker Extensions
 
 To install extensions not yet listed in the Docker Desktop extension market place, follow the instructions here [https://docs.docker.com/desktop/extensions-sdk/](https://docs.docker.com/desktop/extensions-sdk/#prerequisites)
