@@ -74,7 +74,7 @@ function renderCVE(cve,showVulnerability) {
   )
 }
 
-function vulnCounts(props) {
+function VulnCounts(props) {
   let critical=props.critical||0;
   let high=props.high||0;
   let medium=props.medium||0;
@@ -285,7 +285,7 @@ function ScanResults(props) {
             <Accordion>
             <AccordionSummary>
               <div>
-                <vulnCounts
+                <VulnCounts
                   critical={vulnCount(packages.filter(p=>p.namespace===ns),"Critical")}
                   high={vulnCount(packages.filter(p=>p.namespace===ns),"High")}
                   medium={vulnCount(packages.filter(p=>p.namespace===ns),"Medium")}
@@ -324,7 +324,7 @@ function ScanResults(props) {
           <Accordion>
             <AccordionSummary>
               <div>
-                <vulnCounts 
+                <VulnCounts 
                   critical={vulnCount(layer.packages,"Critical")}
                   high={vulnCount(layer.packages,"High")}
                   medium={vulnCount(layer.packages,"Medium")}
