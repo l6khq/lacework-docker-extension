@@ -39,16 +39,16 @@ function App() {
   let [scanResult,setScanResult] = useState({});
   
   async function getConfig() {
-    let cmd = "lw-scanner";
-    if(await isWindows()) cmd="lw-scanner.exe";
+    let cmd = "run.sh"; // replaces lw-scanner
+    if(await isWindows()) cmd="run.cmd"; //replaces lw-scanner.exe
     let output = await ddClient.extension.host.cli.exec(cmd,["configure","view"]);
     setConfig(JSON.parse(output.stdout.replace("Current config :","")));
   }
   
   useEffect(() => {
     async function getVersion() {
-      let cmd = "lw-scanner";
-      if(await isWindows()) cmd="lw-scanner.exe";
+      let cmd = "run.sh"; // replaces lw-scanner
+      if(await isWindows()) cmd="run.cmd"; //replaces lw-scanner.exe
       let output = await ddClient.extension.host.cli.exec(cmd,["version"]);
       let scannerVersion = output.stdout.match(/scanner version: ([0-9.]+)/);
       if(scannerVersion) {
@@ -61,8 +61,8 @@ function App() {
     }
     getVersion();
     async function getConfig() {
-      let cmd = "lw-scanner";
-      if(await isWindows()) cmd="lw-scanner.exe";
+      let cmd = "run.sh"; // replaces lw-scanner
+      if(await isWindows()) cmd="run.cmd"; //replaces lw-scanner.exe
       let output = await ddClient.extension.host.cli.exec(cmd,["configure","view"]);
       console.log(output,JSON.parse(output.stdout.replace("Current config :","")));
       setConfig(JSON.parse(output.stdout.replace("Current config :","")));
@@ -82,8 +82,8 @@ function App() {
     try {
       setView("scan");
       setBlockScreen(true);
-      let cmd = "lw-scanner";
-      if(await isWindows()) cmd="lw-scanner.exe";
+      let cmd = "run.sh"; // replaces lw-scanner
+      if(await isWindows()) cmd="run.cmd"; //replaces lw-scanner.exe
       const result = await ddClient.extension.host.cli.exec(cmd,["evaluate",tag.split(":")[0],tag.split(":")[1],'-v=false']);
       setBlockScreen(false);
       utils.telemetry({event:"scan",message:"success"})
