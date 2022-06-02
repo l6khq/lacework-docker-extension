@@ -285,7 +285,7 @@ function ScanResults(props) {
             <Accordion>
             <AccordionSummary>
               <div>
-                <vulnCount 
+                <vulnCounts
                   critical={vulnCount(packages.filter(p=>p.namespace===ns),"Critical")}
                   high={vulnCount(packages.filter(p=>p.namespace===ns),"High")}
                   medium={vulnCount(packages.filter(p=>p.namespace===ns),"Medium")}
@@ -324,7 +324,7 @@ function ScanResults(props) {
           <Accordion>
             <AccordionSummary>
               <div>
-                <vulnCount 
+                <vulnCounts 
                   critical={vulnCount(layer.packages,"Critical")}
                   high={vulnCount(layer.packages,"High")}
                   medium={vulnCount(layer.packages,"Medium")}
