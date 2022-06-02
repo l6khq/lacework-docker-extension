@@ -82,20 +82,20 @@ function VulnCounts(props) {
   let info=props.info||0;
   return (
     <ButtonGroup sx={{marginRight:'1em'}}>
-      <Button variant="contained" className="btn-cve-layer btn-cve-Critical" 
-        style={{backgroundColor: critical===0?"#aaa !important":null}}>{critical}
+      <Button variant="contained" className={"btn-cve-layer btn-cve-Critical "+
+        (critical===0?"btn-cve-bg-gray ":null)}>{critical}
       </Button>
-      <Button variant="contained" className="btn-cve-layer btn-cve-High" 
-        style={{backgroundColor: high===0?"#aaa !important":null}}>{high}
+      <Button variant="contained" className={"btn-cve-layer btn-cve-High "+
+        (high===0?"btn-cve-bg-gray ":null)}>{high}
       </Button>
-      <Button variant="contained" className="btn-cve-layer btn-cve-Critical" 
-        style={{backgroundColor: medium===0?"#aaa !important":null}}>{medium}
+      <Button variant="contained" className={"btn-cve-layer btn-cve-Medium "+
+        (medium===0?"btn-cve-bg-gray ":null)}>{medium}
       </Button>
-      <Button variant="contained" className="btn-cve-layer btn-cve-Critical" 
-        style={{backgroundColor: low===0?"#aaa !important":null}}>{low}
+      <Button variant="contained" className={"btn-cve-layer btn-cve-Low "+
+        (low===0?"btn-cve-bg-gray ":null)}>{low}
       </Button>
-      <Button variant="contained" className="btn-cve-layer btn-cve-Critical" 
-        style={{backgroundColor: info===0?"#aaa !important":null}}>{info}
+      <Button variant="contained" className={"btn-cve-layer btn-cve-Info "+
+        (info===0?"btn-cve-bg-gray ":null)}>{info}
       </Button>
     </ButtonGroup>
   );
