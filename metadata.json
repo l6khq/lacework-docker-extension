@@ -8,6 +8,9 @@
             "path": "/host/darwin/lw-scanner"
           },
           {
+            "path": "/host/scripts/run.sh"
+          },
+          {
             "path": "/host/scripts/config.sh"
           }
         ],
@@ -16,12 +19,18 @@
             "path": "/host/linux/lw-scanner"
           },
           {
+            "path": "/host/scripts/run.sh"
+          },
+          {
             "path": "/host/scripts/config.sh"
           }
         ],
         "windows": [
           {
             "path": "/host/windows/lw-scanner.exe"
+          },
+          {
+            "path": "/host/scripts/run.cmd"
           },
           {
             "path": "/host/scripts/config.cmd"
