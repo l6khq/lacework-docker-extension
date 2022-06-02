@@ -164,7 +164,7 @@ function App() {
                 label="GitHub Issues" variant="outlined" />
             </Link>
           </div>
-          <h2 className={"hide-"+view}>Container image scanning powered by Lacework's lw-scanner</h2>
+          <h2 className={"hide-"+view}>Scan container images using Lacework Inline Scanner</h2>
           <div className={"hide-"+view}>Either choose on the images already pulled by docker, or specify a new one for docker to pull.</div>
           <ImageSearch onChange={handleScan}/>
           <Button onClick={handleReset}>reset lw-scanner configuration</Button>
