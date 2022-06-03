@@ -35,7 +35,6 @@ function Release() {
   }
   return (
     <div className="release">
-      <Link to="https://github.com/l6khq/lacework-docker-extension/issues">GitHub Issue Tracker</Link><br />
       {showCurrentRelease()}<br />
       {showUpgradeRelease()}<br />
       Copyright 2022 Lacework Inc., All Rights Reserved. Released under Apache 2.0 license.

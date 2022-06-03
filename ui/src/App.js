@@ -65,7 +65,7 @@ function App() {
       let cmd = "run.sh"; // replaces lw-scanner
       if(await isWindows()) cmd="run.cmd"; //replaces lw-scanner.exe
       let output = await ddClient.extension.host.cli.exec(cmd,["configure","view"]);
-      console.log(output,JSON.parse(output.stdout.replace("Current config :","")));
+      //console.log(output,JSON.parse(output.stdout.replace("Current config :","")));
       setConfig(JSON.parse(output.stdout.replace("Current config :","")));
     }
     getConfig();
@@ -79,7 +79,7 @@ function App() {
   }
 
   async function handleScan(tag) {
-    console.log('scanning ',tag);
+    //console.log('scanning ',tag);
     try {
       setView("scan");
       setBlockScreen(true);
@@ -126,15 +126,13 @@ function App() {
             </div>
             <div className={"hide-"+view}>Lacework Scanner Version: {version}</div>
             <div className="chips-top">
-              <Link href="https://github.com/l6khq/lacework-docker-extension">
-                <Chip icon={<GitHubIcon />} 
-                  label="l6khq/lacework-docker-extension" variant="outlined" />
-              </Link>
+              <Chip icon={<GitHubIcon />} 
+                onClick={()=>ddClient.host.openExternal("https://github.com/l6khq/lacework-docker-extension")}
+                label="l6khq/lacework-docker-extension" variant="outlined" />
               &nbsp;
-              <Link href="">
-                <Chip icon={<BugReportIcon />}
-                  label="GitHub Issues" variant="outlined" />
-              </Link>
+              <Chip icon={<BugReportIcon />}
+                onClick={()=>ddClient.host.openExternal("https://github.com/l6khq/lacework-docker-extension/issues")}
+                label="GitHub Issues" variant="outlined" />
             </div>
             <ConfigToken onSuccess={getConfig} />
             <Release />
@@ -154,20 +152,18 @@ function App() {
           </div>
           <div className={"hide-"+view}>Lacework Scanner Version: {version}</div>
           <div className="chips-top">
-            <Link href="https://github.com/l6khq/lacework-docker-extension">
-              <Chip icon={<GitHubIcon />} 
-                label="l6khq/lacework-docker-extension" variant="outlined" />
-            </Link>
-            &nbsp;
-            <Link href="">
-              <Chip icon={<BugReportIcon />}
-                label="GitHub Issues" variant="outlined" />
-            </Link>
+            <Chip icon={<GitHubIcon />}
+              onClick={()=>ddClient.host.openExternal("https://github.com/l6khq/lacework-docker-extension")}               
+              label="l6khq/lacework-docker-extension" variant="outlined" />                                                 
+            &nbsp;                                            
+            <Chip icon={<BugReportIcon />}
+              onClick={()=>ddClient.host.openExternal("https://github.com/l6khq/lacework-docker-extension/issues")}
+              label="GitHub Issues" variant="outlined" />
           </div>
           <h2 className={"hide-"+view}>Scan container images using Lacework Inline Scanner</h2>
           <div className={"hide-"+view}>Either choose on the images already pulled by docker, or specify a new one for docker to pull.</div>
           <ImageSearch onChange={handleScan}/>
-          <Button onClick={handleReset}>reset lw-scanner configuration</Button>
+          <Button onClick={handleReset}>reset extension configuration</Button>
         </Box>
         {renderScanResults()}
         <Release />

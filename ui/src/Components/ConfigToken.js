@@ -19,18 +19,24 @@ function ConfigToken(props) {
   const ddClient = useDockerDesktopClient();
 
   function handleClick() {
-    let cmd = "config.sh";
+    let cmd = "config2.sh";
     if(isWindows()) cmd="config.cmd";
-    console.log("windows: ",isWindows());
+    //console.log("windows: ",isWindows());
     ddClient.extension.host.cli.exec(cmd,[account,token])
     .then(() => {
       props?.onSuccess()
     })
     .catch((err) => {
       console.error(err);
-      alert("Something went wrong");
+      ddClient.desktopUI.toast.error(err.message)
     });
   }
+  function validEntry() {
+    if(!account.match(/^[a-zA-Z0-9-]{3,}(.fra)?$/)) return false;
+    if(!token.match(/^_[a-z0-9]{32}$/)) return false;
+    return true;
+  }
+
   return (
     <Box  sx={{width: '60%', marginLeft: '20%'}}>
       <h1>Let's get lw-scanner configured!</h1>
@@ -38,7 +44,7 @@ function ConfigToken(props) {
         label="Lacework Account (without lacework.net)" fullWidth/>
       <TextField value={token} onChange={e=>setToken(e.target.value)} 
         label="Lacework Scanner Access Token" fullWidth />
-      <Button variant="contained" fullWidth onClick={handleClick}>Let's go</Button>
+      <Button variant="contained" fullWidth onClick={handleClick} disabled={!validEntry()}>Let's go</Button>
     </Box>
   )
 }
