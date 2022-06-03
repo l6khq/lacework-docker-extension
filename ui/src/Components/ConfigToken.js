@@ -19,7 +19,7 @@ function ConfigToken(props) {
   const ddClient = useDockerDesktopClient();
 
   function handleClick() {
-    let cmd = "config2.sh";
+    let cmd = "config.sh";
     if(isWindows()) cmd="config.cmd";
     //console.log("windows: ",isWindows());
     ddClient.extension.host.cli.exec(cmd,[account,token])
