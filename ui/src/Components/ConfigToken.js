@@ -28,7 +28,7 @@ function ConfigToken(props) {
     })
     .catch((err) => {
       console.error(err);
-      ddClient.desktopUI.toast.error(err.message)
+      ddClient.desktopUI.toast.error("Script Error: "+err.stderr)
     });
   }
   function validEntry() {

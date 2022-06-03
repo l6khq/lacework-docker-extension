@@ -95,11 +95,14 @@ function App() {
       if(e.stderr) {
         if(e.stderr.match(/ERROR: /)) {
           errmsg = e.stderr.match(/ERROR: (.*)/)[1];
+          ddClient.desktopUI.toast.error("Execution Error: "+e.stderr)
         } else {
           errmsg = e.stderr;
+          ddClient.desktopUI.toast.error("Execution Error: "+e.stderr)
         }
       } else {
         errmsg = "failed to parse the scan results";
+        ddClient.desktopUI.toast.error(errmsg)
       }
       utils.telemetry({event:"scan",message:"error",error:errmsg})
       setBlockScreen(false);
