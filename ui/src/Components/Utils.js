@@ -1,6 +1,5 @@
 class Utils {
   telemetryEvent = async function(data) {
-    console.log(process.env);
     if(!(process.env.REACT_APP_HONEYCOMB_DATASET && process.env.REACT_APP_HONEYCOMB_TEAM)) return null;
     try {
       fetch(`https://api.honeycomb.io/1/batch/${process.env.REACT_APP_HONEYCOMB_DATASET}`, {
@@ -13,7 +12,7 @@ class Utils {
       });
       return null;
     } catch(e) {
-      console.log(e);
+      // console.log(e);
       return null;
     }
   }  
