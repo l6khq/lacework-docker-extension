@@ -64,12 +64,12 @@ function filterFixable(fixable) {
 
 function renderCVE(cve,showVulnerability) {
   return (
-    <tr className="cve-tr">
+    <tr key={cve.name} className="cve-tr">
       <td><Button variant="contained" className={"btn-cve btn-cve-"+cve.severity} fullWidth  onClick={()=>showVulnerability(cve)}>{cve.name}</Button></td>
-      <td>{cve.pkg.namespace}</td>
-      <td>{cve.pkg.name}</td>
-      <td>{cve.pkg.version}</td>
-      <td>{cve.fix_version}</td>
+      <td><Typography>{cve.pkg.namespace}</Typography></td>
+      <td><Typography>{cve.pkg.name}</Typography></td>
+      <td><Typography>{cve.pkg.version}</Typography></td>
+      <td><Typography>{cve.fix_version}</Typography></td>
     </tr>
   )
 }
@@ -264,11 +264,11 @@ function ScanResults(props) {
         <table cellPadding={2} cellSpacing={0} className="cve-table">
           <thead>
             <tr>
-              <th width="1">CVE</th>
-              <th className="cve-th-left">Namespace</th>
-              <th className="cve-th-left">Package</th>
-              <th className="cve-th-left">Version</th>
-              <th className="cve-th-left">Fixed</th>
+              <th width="1"><Typography>CVE</Typography></th>
+              <th className="cve-th-left"><Typography>Namespace</Typography></th>
+              <th className="cve-th-left"><Typography>Package</Typography></th>
+              <th className="cve-th-left"><Typography>Version</Typography></th>
+              <th className="cve-th-left"><Typography>Fixed</Typography></th>
             </tr>
           </thead>
           <tbody>
@@ -282,7 +282,7 @@ function ScanResults(props) {
       </Box>
       <Box className="packages" role="tabpanel" hidden={1!==tab}>
         {getNamespacesFromPackages(packages).map(ns => (
-            <Accordion>
+            <Accordion key={ns}>
             <AccordionSummary>
               <div>
                 <VulnCounts
@@ -293,27 +293,31 @@ function ScanResults(props) {
                   info={vulnCount(packages.filter(p=>p.namespace===ns),"Info")}
                 />
               </div>
-              <div>package namespace:&nbsp;<strong>{ns}</strong></div>
+              <div><Typography>package namespace:&nbsp;<strong>{ns}</strong></Typography></div>
             </AccordionSummary>
             <AccordionDetails>
               <table cellSpacing={0} cellPadding={2} style={{width:'100%'}}>
+                <thead>
                 <tr>
-                  <th className="cve-th-left">Package</th>
-                  <th className="cve-th-left">CVEs</th>
-                  <th className="cve-th-left">Fix Versions</th>
+                  <th className="cve-th-left"><Typography>Package</Typography></th>
+                  <th className="cve-th-left"><Typography>CVEs</Typography></th>
+                  <th className="cve-th-left"><Typography>Fix Versions</Typography></th>
                 </tr>
+                </thead>
+                <tbody>
                 {packages.filter(p=>p.namespace===ns).filter(p=>p.vulnerabilities.filter(useFilter).length>0)
                   .sort(sortPkgVulnCount).map(pkg => (
-                  <tr className="odd-even-highlight">
+                  <tr key={pkg.name} className="odd-even-highlight">
                     <td className="nowrap">{pkg.name}</td>
-                    <td>{pkg.vulnerabilities.sort(sortSeverity).filter(useFilter).map(v=>(<Button variant="contained" className={"btn-pkg-cve btn-cve btn-cve-"+v.severity}  onClick={()=>showVulnerability(v)}>
+                    <td>{pkg.vulnerabilities.sort(sortSeverity).filter(useFilter).map(v=>(<Button key={v.name} variant="contained" className={"btn-pkg-cve btn-cve btn-cve-"+v.severity}  onClick={()=>showVulnerability(v)}>
                       {v.name}
                     </Button>))}</td>
                     <td>
-                      {pkg.vulnerabilities.filter(v=>v.fix_version).filter(useFilter).map(v=>v.fix_version).sort().reverse().join(", ")||"no fix"}
+                      <Typography>{pkg.vulnerabilities.filter(v=>v.fix_version).filter(useFilter).map(v=>v.fix_version).sort().reverse().join(", ")||"no fix"}</Typography>
                     </td>
                   </tr>
                 ))}
+                </tbody>
               </table>
             </AccordionDetails>
           </Accordion>
@@ -321,7 +325,7 @@ function ScanResults(props) {
       </Box>
       <Box className="layers" role="tabpanel" hidden={2!==tab}>
         {results?.cve?.image?.image_layers.map(layer => (
-          <Accordion>
+          <Accordion key={layer?.hash}>
             <AccordionSummary>
               <div>
                 <VulnCounts 
@@ -332,21 +336,21 @@ function ScanResults(props) {
                   info={vulnCount(layer.packages,"Info")}
                 />
               </div>
-              <div className="word-break-all">{layer.created_by}</div>
+              <div className="word-break-all"><Typography>{layer.created_by}</Typography></div>
             </AccordionSummary>
             <AccordionDetails>
               {layer.packages.length===0?"No vulnerabilities found!":null}
               {layer.packages
               .filter(pkg => pkg.vulnerabilities.filter(useFilter).length>0)
               .map(pkg => (
-                <div>
-                  <strong>{pkg.namespace}: {pkg.name} ({pkg.version})</strong><br />
+                <div key={`${pkg.namespace}${pkg.name}${pkg.version}`} style={{marginBottom:'16px'}}>
+                  <Typography><strong>{pkg.namespace}: {pkg.name} ({pkg.version})</strong></Typography>
                   {pkg.vulnerabilities.filter(useFilter).map(v => (
-                    <Button variant="contained" className={"btn-pkg-cve btn-cve btn-cve-"+v.severity} onClick={()=>showVulnerability(v)}>
+                    <Button key={v.name} variant="contained" className={"btn-pkg-cve btn-cve btn-cve-"+v.severity} onClick={()=>showVulnerability(v)}>
                       {v.name}
                     </Button>
                   ))}
-                  {pkg.vulnerabilities.filter(useFilter).length===0?"no vulnerabilities matching filter":""}
+                  <Typography>{pkg.vulnerabilities.filter(useFilter).length===0?"no vulnerabilities matching filter":""}</Typography>
                 </div>
               ))}
             </AccordionDetails>

@@ -110,7 +110,10 @@ function App() {
       setScanResult({result:"ok",results:JSON.parse(result.stdout)})
     } catch(e) {
       let errmsg = "";
-      if(e.stderr) {
+      if(e.stderr==="" && e.stdout==="") {
+        errmsg = "Unable to scan this image.";
+        ddClient.desktopUI.toast.error("Unable to scan this image.")
+      } else if(e.stderr) {
         if(e.stderr.match(/ERROR: /)) {
           errmsg = e.stderr.match(/ERROR: (.*)/)[1];
           ddClient.desktopUI.toast.error("Execution Error: "+errmsg)
