@@ -166,3 +166,7 @@
 .btn-cve-bg-gray {
   background-color: #AAAAAA !important;
 }
+
+.word-break-all {
+  word-break: break-all;
+}

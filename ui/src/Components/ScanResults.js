@@ -332,7 +332,7 @@ function ScanResults(props) {
                   info={vulnCount(layer.packages,"Info")}
                 />
               </div>
-              <div>{layer.created_by}</div>
+              <div className="word-break-all">{layer.created_by}</div>
             </AccordionSummary>
             <AccordionDetails>
               {layer.packages.length===0?"No vulnerabilities found!":null}
