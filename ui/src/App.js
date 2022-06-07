@@ -78,7 +78,7 @@ function App() {
       await ddClient.extension.host.cli.exec(cmd,["reset"]);
     } catch(e) {
       if(e.stderr) {
-        ddClient.desktopUI.toast.error("Error: "+errmsg);
+        ddClient.desktopUI.toast.error("Error: "+e.stderrfix);
       } else {
         ddClient.desktopUI.toast.error(e.toString())
       }
