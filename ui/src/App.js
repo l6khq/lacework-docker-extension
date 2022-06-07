@@ -74,7 +74,15 @@ function App() {
   async function handleReset() {
     let cmd = "config.sh";
     if(await isWindows()) cmd="config-reset.cmd";
-    await ddClient.extension.host.cli.exec(cmd,["reset"]);
+    try {
+      await ddClient.extension.host.cli.exec(cmd,["reset"]);
+    } catch(e) {
+      if(e.stderr) {
+        ddClient.desktopUI.toast.error("Error: "+errmsg);
+      } else {
+        ddClient.desktopUI.toast.error(e.toString())
+      }
+    }
     window.location.reload();
   }
 
@@ -101,7 +109,6 @@ function App() {
       utils.telemetry({event:"scan",message:"success"})
       setScanResult({result:"ok",results:JSON.parse(result.stdout)})
     } catch(e) {
-      console.error(e);
       let errmsg = "";
       if(e.stderr) {
         if(e.stderr.match(/ERROR: /)) {
