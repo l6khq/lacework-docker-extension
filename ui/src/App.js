@@ -128,7 +128,7 @@ function App() {
     )
   }
 
-  //show loading screen while initializing configuration
+  //show loading screen while initializing configuration  
   if(!config) {
     return (
       <DockerMuiThemeProvider>
@@ -148,8 +148,8 @@ function App() {
         <CssBaseline />
         <Box className="App">
           <Box className={"search "+view}>
-            <div>
-              <img className="logo_front" src={matchMedia("(prefers-color-scheme: dark")?.matches?logoLight:logoDark} alt="" />
+            <div className="logo_front">
+              {/*<img className="logo_front" src={matchMedia("(prefers-color-scheme: dark")?.matches?logoLight:logoDark} alt="" />*/}
             </div>
             <div className={"hide-"+view}>Lacework Scanner Version: {version}</div>
             <div className="chips-top">
@@ -174,8 +174,8 @@ function App() {
       <CssBaseline />
       <Box className="App">
         <Box className={"search "+view}>
-          <div>
-            <img className="logo_front" src={matchMedia("(prefers-color-scheme: dark")?.matches?logoLight:logoDark} alt="" />
+          <div className="logo_front">
+            {/*<img className="logo_front" src={matchMedia("(prefers-color-scheme: dark")?.matches?logoLight:logoDark} alt="" />*/}
           </div>
           <div className={"hide-"+view}>Lacework Scanner Version: {version}</div>
           <div className="chips-top">

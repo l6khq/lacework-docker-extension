@@ -29,10 +29,21 @@
 .image_list {
   text-align: left;
 }
-
 .logo_front {
-  width: 40%;
-  min-width: 300px;
+  width: 100%;
+  height: 40px;
+  margin-bottom: 8px;
+  background-image: url('assets/images/lacework_dark.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.scan>.logo_front {
+  background-position: left;
+}
+@media (prefers-color-scheme: dark) {
+  .logo_front {
+    background-image: url('assets/images/lacework_light.svg');
+  }
 }
 
 .image_search {
