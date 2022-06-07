@@ -1,5 +1,5 @@
 import { createDockerDesktopClient } from "@docker/extension-api-client";
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, FormControl, FormGroup, Link, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 
 const client = createDockerDesktopClient();
@@ -39,7 +39,10 @@ function ConfigToken(props) {
 
   return (
     <Box  sx={{width: '60%', marginLeft: '20%'}}>
-      <h1>Let's get lw-scanner configured!</h1>
+      <h2>Let's get Lacework Scanner configured!</h2>
+      <Typography>
+        You will need to have an active Lacework subscription to use this extension.  You can review the <Link onClick={() => ddClient.host.openExternal("https://docs.lacework.com/integrate-inline-scanner#obtain-the-inline-scanner-and-authorization-token")}>docs</Link> to generate a new access token.
+      </Typography>
       <TextField value={account} onChange={e=>setAccount(e.target.value)} 
         label="Lacework Account (without lacework.net)" fullWidth/>
       <TextField value={token} onChange={e=>setToken(e.target.value)} 

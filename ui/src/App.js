@@ -5,7 +5,7 @@ import { DockerMuiThemeProvider } from '@docker/docker-mui-theme';
 import { createDockerDesktopClient } from '@docker/extension-api-client';
 import "./App.css";
 // import ImageList from "./Components/ImageList";
-import { Backdrop, Link } from "@mui/material";
+import { Backdrop, CircularProgress, Link } from "@mui/material";
 import logoDark from './assets/images/lacework_dark.svg';
 import logoLight from './assets/images/lacework_light.svg';
 import ImageSearch from "./Components/ImageSearch";
@@ -78,6 +78,14 @@ function App() {
     window.location.reload();
   }
 
+  async function cancelScan() {
+    if(window.cancelScan) {
+      window.cancelScan();
+      setBlockScreen(false);
+      delete window.cancelScan;
+    } 
+  }
+
   async function handleScan(tag) {
     //console.log('scanning ',tag);
     try {
@@ -85,7 +93,10 @@ function App() {
       setBlockScreen(true);
       let cmd = "run.sh"; // replaces lw-scanner
       if(await isWindows()) cmd="run.cmd"; //replaces lw-scanner.exe
+      let cancelScan = false;
+      window.cancelScan = () => cancelScan=true;
       const result = await ddClient.extension.host.cli.exec(cmd,["evaluate",tag.split(":")[0],tag.split(":")[1],'-v=false']);
+      if(cancelScan) return;
       setBlockScreen(false);
       utils.telemetry({event:"scan",message:"success"})
       setScanResult({result:"ok",results:JSON.parse(result.stdout)})
@@ -95,7 +106,7 @@ function App() {
       if(e.stderr) {
         if(e.stderr.match(/ERROR: /)) {
           errmsg = e.stderr.match(/ERROR: (.*)/)[1];
-          ddClient.desktopUI.toast.error("Execution Error: "+e.stderr)
+          ddClient.desktopUI.toast.error("Execution Error: "+errmsg)
         } else {
           errmsg = e.stderr;
           ddClient.desktopUI.toast.error("Execution Error: "+e.stderr)
@@ -114,6 +125,19 @@ function App() {
     if(view!=="scan") return null;
     return (
       <ScanResults results={scanResult} />
+    )
+  }
+
+  //show loading screen while initializing configuration
+  if(!config) {
+    return (
+      <DockerMuiThemeProvider>
+        <CssBaseline />
+        <Box sx={{textAlign:'top',marginTop:'4em'}}>
+          <CircularProgress />
+          <div>Loading Lacework Scanner</div>
+        </Box>
+      </DockerMuiThemeProvider>
     )
   }
 
@@ -172,7 +196,7 @@ function App() {
         <Release />
       </Box>
       <Backdrop
-          sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1, backdropFilter: 'blur(3px)' }}
           open={blockScreen}
         >
           {/*  */}
@@ -182,6 +206,7 @@ function App() {
             </Box>
             <Box sx={{display:'block'}}>
                 <h2>scanning image...</h2>
+                <Button variant="contained" onClick={cancelScan}>cancel</Button>
             </Box>
           </Box>
       </Backdrop>

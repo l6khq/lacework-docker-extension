@@ -61,6 +61,7 @@ function ImageSearch(props) {
         </Box>
         <Box>
           <Button variant="contained" style={{height:'100%', fontSize: '1.2em'}}
+            disabled={!image}
             onClick={handleScan}
           >Scan Image</Button>
         </Box>
