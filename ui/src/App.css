@@ -91,15 +91,19 @@
 .cve-tr {
   vertical-align: top;
 }
-/*.cve-th-left {
+.cve-pkg-th-left {
   text-align: left;
-}*/
+}
+.cve-pkg-th-left>p {
+    font-weight: bold;
+}
 .cve-tr:nth-child(even) {
   background-color: rgba(255,255,255,0.1)
 }
 
 .btn-cve {
   white-space: nowrap;
+  margin: 4px !important;
 }
 .btn-cve-Critical {
   background-color: rgb(175,15,13) !important;
@@ -158,8 +162,19 @@
   /* white-space: normal !important; */
 }
 
-.odd-even-highlight:nth-child(even) {
-  background-color: rgba(255,255,255,0.1);
+table>thead>tr {
+  background-color: rgba(0,0,0,0.1);
+}
+tbody.odd-even-highlight>tr:nth-child(even) {
+  background-color: rgba(0,0,0,0.05);
+}
+@media (prefers-color-scheme: dark) {
+  table>thead>tr {
+    background-color: rgba(255,255,255,0.1);
+  }
+  tbody.odd-even-highlight>tr:nth-child(even) {
+    background-color: rgba(255,255,255,0.05);
+  }
 }
 
 .image-select-input>div {

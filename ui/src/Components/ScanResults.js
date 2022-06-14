@@ -11,7 +11,6 @@ const cveModalStyle = {
   transform: 'translate(-50%, -50%)',
   width: '70%',
   bgcolor: 'background.paper',
-  border: '2px solid #000',
   boxShadow: 24,
   p: 4,
 };
@@ -275,6 +274,7 @@ function ScanResults(props) {
         </Tabs>
       </Box>
       <Box className="cve" role="tabpanel" hidden={0!==tab}>
+        <Accordion><AccordionDetails>
         <table cellPadding={2} cellSpacing={0} className="cve-table">
           <thead>
             <tr>
@@ -285,7 +285,7 @@ function ScanResults(props) {
               <th className="cve-th-left"><Typography>Fixed</Typography></th>
             </tr>
           </thead>
-          <tbody>
+          <tbody class="odd-even-highlight">
             {cves.filter(c=>c.severity==="Critical").filter(useFilter).map(v => renderCVE(v,showVulnerability))}
             {cves.filter(c=>c.severity==="High").filter(useFilter).map(v => renderCVE(v,showVulnerability))}
             {cves.filter(c=>c.severity==="Medium").filter(useFilter).map(v => renderCVE(v,showVulnerability))}
@@ -293,6 +293,7 @@ function ScanResults(props) {
             {cves.filter(c=>c.severity==="Info").filter(useFilter).map(v => renderCVE(v,showVulnerability))}
           </tbody>
         </table>
+        </AccordionDetails></Accordion>
       </Box>
       <Box className="packages" role="tabpanel" hidden={1!==tab}>
         {getNamespacesFromPackages(packages).map(ns => (
@@ -315,17 +316,17 @@ function ScanResults(props) {
               <table cellSpacing={0} cellPadding={2} style={{width:'100%'}}>
                 <thead>
                 <tr>
-                  <th className="cve-th-left"><Typography>Package</Typography></th>
-                  <th className="cve-th-left"><Typography>CVEs</Typography></th>
-                  <th className="cve-th-left"><Typography>Fix Versions</Typography></th>
+                  <th className="cve-pkg-th-left"><Typography>Package</Typography></th>
+                  <th className="cve-pkg-th-left"><Typography>CVEs</Typography></th>
+                  <th className="cve-pkg-th-left"><Typography>Fix Versions</Typography></th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody className="odd-even-highlight">
                 {packages.filter(p=>p.namespace===ns).filter(p=>p.vulnerabilities.filter(useFilter).length>0)
                   .sort(sortPkgVulnCount).map(pkg => (
-                  <tr key={pkg.name} className="odd-even-highlight">
-                    <td className="nowrap">{pkg.name}</td>
-                    <td>{pkg.vulnerabilities.sort(sortSeverity).filter(useFilter).map(v=>(<Button key={v.name} variant="contained" className={"btn-pkg-cve btn-cve btn-cve-"+v.severity}  onClick={()=>showVulnerability(v)}>
+                  <tr key={pkg.name}>
+                    <td className="nowrap" style={{paddingRight:'8px'}}><Typography>{pkg.name}</Typography></td>
+                    <td style={{paddingRight:'8px'}}>{pkg.vulnerabilities.sort(sortSeverity).filter(useFilter).map(v=>(<Button key={v.name} variant="contained" className={"btn-pkg-cve btn-cve btn-cve-"+v.severity}  onClick={()=>showVulnerability(v)}>
                       {v.name}
                     </Button>))}</td>
                     <td>
