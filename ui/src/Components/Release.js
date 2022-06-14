@@ -1,4 +1,4 @@
-import { Link } from "@mui/material";
+import { Link, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import semver from 'semver';
 
@@ -27,17 +27,19 @@ function Release() {
   function showUpgradeRelease() {
     if(semver.valid(currentRelease) && semver.valid(latestRelease)) {
       if(semver.cmp(currentRelease,"<",latestRelease))
-      return (<span>new release available: {latestRelease}</span>);  
+      return (<span><br />new release available: {latestRelease}</span>);  
     } else if(!semver.valid(currentRelease) && semver.valid(latestRelease)) {
-      return (<span>please upgrade to {latestRelease}</span>);  
+      return (<span><br />please upgrade to {latestRelease}</span>);  
     }
     return null;
   }
   return (
     <div className="release">
-      {showCurrentRelease()}<br />
-      {showUpgradeRelease()}<br />
-      Copyright 2022 Lacework Inc., All Rights Reserved. Released under Apache 2.0 license.
+      <Typography color="disabled" >
+        {showCurrentRelease()}
+        {showUpgradeRelease()}<br />
+        Copyright 2022 Lacework Inc., All Rights Reserved. Released under Apache 2.0 license.
+      </Typography>
     </div>
   )
 }

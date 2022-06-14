@@ -211,6 +211,20 @@ function ScanResults(props) {
 
   return (
     <Box className="scan_results">
+      <Box sx={{marginBottom: '8px'}}>
+        <Typography>
+          <table>
+            <tbody>
+              <tr>
+                <td>Scan results for</td><td><strong>{results?.cve?.image?.image_info?.repository}:{results?.cve?.image?.image_info?.tags[0]||'latest'}</strong></td>
+              </tr>
+              <tr>
+                <td>Image digest</td><td><strong>{results?.cve?.image?.image_info?.image_digest}</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </Typography>
+      </Box>
       <Box className="filters">
         <ButtonGroup>
           <Button variant={filter.fixable?"outlined":"contained"}

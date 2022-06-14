@@ -72,13 +72,13 @@ function App() {
   },[ddClient.extension.host.cli])
 
   async function handleReset() {
-    let cmd = "config.sh";
-    if(await isWindows()) cmd="config-reset.cmd";
+    let cmd = "lw-scanner";
+    if(await isWindows()) cmd="lw-scanner.exe";
     try {
-      await ddClient.extension.host.cli.exec(cmd,["reset"]);
+      await ddClient.extension.host.cli.exec(cmd,["configure","reset"]);
     } catch(e) {
       if(e.stderr) {
-        ddClient.desktopUI.toast.error("Error: "+e.stderrfix);
+        ddClient.desktopUI.toast.error("Error: "+e.stderr);
       } else {
         ddClient.desktopUI.toast.error(e.toString())
       }

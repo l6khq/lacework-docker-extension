@@ -78,12 +78,22 @@
 .cve-table {
   width: 100%;
 }
+.cve-table>thead>tr>th {
+  text-align: center;
+}
+.cve-table>thead>tr>th>p {
+  font-weight: bold;
+}
+.cve-table>tbody>tr>td {
+  vertical-align: middle;
+  text-align: center
+}
 .cve-tr {
   vertical-align: top;
 }
-.cve-th-left {
+/*.cve-th-left {
   text-align: left;
-}
+}*/
 .cve-tr:nth-child(even) {
   background-color: rgba(255,255,255,0.1)
 }
@@ -155,8 +165,8 @@
 .image-select-input>div {
   padding: 0 !important;
   padding-left: 1em !important;
-  height: 3em;
-  font-size: 1.2em;
+  /*height: 3em;
+  font-size: 1.2em;*/
 }
 
 .chips-top {

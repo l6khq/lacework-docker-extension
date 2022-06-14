@@ -34,7 +34,7 @@ function ImageSearch(props) {
   function handleImageChange(e,newValue) {
     setImage(newValue);
     if(newValue) {
-      if(props.onChange) props.onChange(newValue);
+      //if(props.onChange) props.onChange(newValue);
     }
   } 
 
@@ -58,10 +58,10 @@ function ImageSearch(props) {
           />
         </Box>
         <Box>
-          <Button variant="contained" style={{height:'100%', fontSize: '1.2em'}}
+          <Button variant="contained" style={{height:'100%', width: '25em'}}
             disabled={!image}
             onClick={handleScan}
-          >Scan Image</Button>
+          >{(!images.includes(image)&&image.length>0)?"Download and ":""}Scan Image</Button>
         </Box>
       </Box>
     </div>
