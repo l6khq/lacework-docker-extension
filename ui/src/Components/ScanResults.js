@@ -297,8 +297,8 @@ function ScanResults(props) {
       <Box className="packages" role="tabpanel" hidden={1!==tab}>
         {getNamespacesFromPackages(packages).map(ns => (
             <Accordion key={ns}>
-            <AccordionSummary>
-              <div>
+            <AccordionSummary className="pkg-summary">
+              <div style={{alignItems:'center'}}>
                 <VulnCounts
                   critical={vulnCount(packages.filter(p=>p.namespace===ns),"Critical")}
                   high={vulnCount(packages.filter(p=>p.namespace===ns),"High")}
@@ -307,7 +307,9 @@ function ScanResults(props) {
                   info={vulnCount(packages.filter(p=>p.namespace===ns),"Info")}
                 />
               </div>
-              <div><Typography>package namespace:&nbsp;<strong>{ns}</strong></Typography></div>
+              <div  style={{alignItems:'center'}}>
+                <Typography>package namespace:&nbsp;<strong>{ns}</strong></Typography>
+              </div>
             </AccordionSummary>
             <AccordionDetails>
               <table cellSpacing={0} cellPadding={2} style={{width:'100%'}}>

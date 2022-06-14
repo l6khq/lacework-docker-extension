@@ -44,10 +44,16 @@ function ConfigToken(props) {
         You will need to have an active Lacework subscription to use this extension.  You can review the <Link onClick={() => ddClient.host.openExternal("https://docs.lacework.com/integrate-inline-scanner#obtain-the-inline-scanner-and-authorization-token")}>docs</Link> to generate a new access token.
       </Typography>
       <TextField value={account} onChange={e=>setAccount(e.target.value)} 
+        size="small"
+        style={{marginTop:'24px'}}
         label="Lacework Account (without lacework.net)" fullWidth/>
       <TextField value={token} onChange={e=>setToken(e.target.value)} 
+        size="small"
+        style={{marginTop:'16px'}}
         label="Lacework Scanner Access Token" fullWidth />
-      <Button variant="contained" fullWidth onClick={handleClick} disabled={!validEntry()}>Let's go</Button>
+      <Button variant="contained" fullWidth 
+        style={{marginTop:'16px', marginBottom: '16px'}}
+        onClick={handleClick} disabled={!validEntry()}>Let's go</Button>
     </Box>
   )
 }

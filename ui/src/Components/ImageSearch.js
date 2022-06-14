@@ -40,8 +40,8 @@ function ImageSearch(props) {
 
   return (
     <div className={"image_search "+(props.mode==="scan"?"image_scan ":" ")}>
-      <Box sx={{ display: 'flex' }}>
-        <Box sx={{ flexGrow: 1}}>
+      <Box sx={{ display: 'flex', marginTop: '8px', marginBottom: '8px' }}>
+        <Box sx={{ flexGrow: 1, marginRight: '8px'}}>
           <Autocomplete
             freeSolo
             id="combo-box-demo"
@@ -54,14 +54,14 @@ function ImageSearch(props) {
             onChange={handleImageChange}
             className="image-select"
             // onInputChange={e=>setImage(e.target.value)}
-            renderInput={(params) => <TextField className="image-select-input" variant="filled" {...params} placeholder="Docker Image" />}
+            renderInput={(params) => <TextField className="image-select-input" variant="outlined" {...params} placeholder="Docker Image" />}
           />
         </Box>
         <Box>
           <Button variant="contained" style={{height:'100%', width: '25em'}}
             disabled={!image}
             onClick={handleScan}
-          >{(!images.includes(image)&&image.length>0)?"Download and ":""}Scan Image</Button>
+          >{(!images.includes(image)&&image?.length>0)?"Download and ":""}Scan Image</Button>
         </Box>
       </Box>
     </div>
